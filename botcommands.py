@@ -7,33 +7,19 @@ import math
 from bs4 import BeautifulSoup
 import requests
 import re
-
-import discord
-from discord.ext.commands.errors import BadArgument, CommandNotFound
-from dotenv import load_dotenv
 from discord.ext import commands
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
-
-bot =  commands.Bot(command_prefix="$")
-
-class errorHandler(commands.Cog):
-    def __init__(self, bot:commands.Bot):
-        self.bot = bot
-
-class someCommands(commands.Cog):
+class botCommands(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @bot.command()
-    async def ping(ctx):
+    @commands.command()
+    async def ping(self, ctx):
         # the test command
         await ctx.channel.send("pong")
 
-    @bot.command()
-    async def rule(ctx, arg):
+    @commands.command()
+    async def rule(self, ctx, arg):
         #look up a rule on legionquickguide, then post the result to discord chat
 
         url = "http://legionquickguide.com/#a"
@@ -67,18 +53,6 @@ class someCommands(commands.Cog):
                 part = ruleText [i : i+chars]
                 await ctx.channel.send("```" + part + "```")
                 #print(part)
-                    
-
-
-    @rule.error
-    async def info_error(ctx, error):
-        print(error)
-        if isinstance(error, commands.errors.BadArgument):
-            await ctx.send("Error parsing keyword")
-
 
 def setup(bot: commands.Bot):
-    bot.add_cog(errorHandler(bot))
-    bot.add_cog(someCommands(bot))
-
-bot.run(TOKEN)
+    bot.add_cog(botCommands(bot))
