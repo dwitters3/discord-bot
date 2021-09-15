@@ -1,0 +1,10 @@
+/.env
+/__pycache__
+/amg scraper.js
+/amgparse.bak.csv
+/amgparse.txt
+/compareparse.py
+/csv comparison
+/keywordsearch.py
+/testcomp.py
+/testprintdiscord.py
